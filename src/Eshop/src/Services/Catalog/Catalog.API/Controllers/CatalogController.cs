@@ -30,7 +30,6 @@ namespace Catalog.API.Controllers
         [HttpGet(nameof(GetWithPagination))]
         public async Task<ResponseDto<IEnumerable<ProductDto>>> GetWithPagination(string searchCriteria, int pageSize, int pageIndex)
         {
-            throw new AnyException();
             return await ExecuteAsync(() => _service.GetWithPagination(searchCriteria, pageSize, pageIndex));
         }
 
@@ -44,8 +43,28 @@ namespace Catalog.API.Controllers
         [HttpGet(nameof(GetWithOutPagination))]
         public async Task<ResponseDto<IEnumerable<ProductDto>>> GetWithOutPagination(string searchCriteria, int pageSize, int pageIndex)
         {
-            throw new AnyException();
             return await ExecuteAsync(() => _service.GetWithPagination(searchCriteria, pageSize, pageIndex));
+        }
+
+        /// <summary>
+        /// Test Error handling for AnyException
+        /// </summary>
+        /// <returns>AnyException</returns>
+        [HttpGet(nameof(ThrowError))]
+        public async Task<ResponseDto<IEnumerable<ProductDto>>> ThrowError()
+        {
+            throw new AnyException();
+        }
+
+
+        /// <summary>
+        /// Returns a number
+        /// </summary>
+        /// <returns>a number</returns>
+        [HttpGet(nameof(TestSession))]
+        public async Task<IActionResult> TestSession()
+        {
+            return Ok(123);
         }
     }
 }
